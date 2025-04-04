@@ -60,8 +60,60 @@ class Product extends HTMLElement {
     render() {
         if (this.shadowRoot) {
             this.shadowRoot.innerHTML = `
-                <style>
-                </style>
+                            <style>
+                :host {
+                    display: block;
+                    max-width: 300px;
+                    margin: 1rem;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+
+                section {
+                    background-color: #fff;
+                    border-radius: 16px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                    padding: 16px;
+                    transition: transform 0.2s ease-in-out;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                section:hover {
+                    transform: translateY(-4px);
+                }
+
+                img.image-character {
+                    width: 100%;
+                    height: auto;
+                    object-fit: cover;
+                    border-radius: 12px;
+                }
+
+                h1 {
+                    font-size: 1.2rem;
+                    color: #222;
+                    margin: 0;
+                    text-align: center;
+                }
+
+                h2 {
+                    font-size: 0.95rem;
+                    color: #555;
+                    margin: 0;
+                    text-align: center;
+                }
+
+                h2:nth-of-type(4) {
+                    font-weight: bold;
+                    color: #28a745; /* Verde para el precio */
+                }
+
+                h2:nth-of-type(5) {
+                    color: #f39c12; /* Amarillo para el rating */
+                }
+            </style>
                 <section>
                     <img class="image-character" src="${this.image || ''}" alt="${this.productTitle || ''}">
                     <h1>${this.productTitle}</h1>
@@ -69,7 +121,6 @@ class Product extends HTMLElement {
                     <h2>Category: ${this.category || 'Unknown'}</h2>
                     <h2>Price: $${this.price || 'Unknown'}</h2>
                     <h2>Rating: ${this.rating || 'Unknown'}</h2>
-                    <button class="add-to-cart">Add to Cart</button>
                 </section>
             `;
         }

@@ -36,13 +36,39 @@ class AppContainer extends HTMLElement {
     render() {
         const shadowRoot = this.shadowRoot;
         if (shadowRoot) {
-            shadowRoot.innerHTML = ''; // Limpiamos antes de renderizar
-
-            this.cards.forEach((card) => {
-                if (card) {
-                    shadowRoot.appendChild(card); // Añadimos cada tarjeta al shadow DOM
-                }
-            });
+            shadowRoot.innerHTML = `
+                <style>
+                    .product-container {
+                        display: flex;
+                        gap: 1rem;
+                        overflow-x: auto;
+                        padding: 1rem;
+                        scroll-snap-type: x mandatory;
+                    }
+    
+                    .product-container::-webkit-scrollbar {
+                        height: 8px;
+                    }
+    
+                    .product-container::-webkit-scrollbar-thumb {
+                        background: #ccc;
+                        border-radius: 4px;
+                    }
+    
+                    .product-container > my-product {
+                        scroll-snap-align: start;
+                        flex: 0 0 auto;
+                    }
+                </style>
+                <div class="product-container"></div>
+            `;
+    
+            const container = shadowRoot.querySelector(".product-container");
+            if (container) {
+                this.cards.forEach((card) => {
+                    container.appendChild(card);
+                });
+            }
         } else {
             console.error("Shadow root is null");
         }
